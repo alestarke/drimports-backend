@@ -6,12 +6,13 @@ use App\Http\Controllers\Api\BrandsController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\ImportController;
 
 //LOGIN
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 
 //REGISTER USER
-Route::post('/register', [UsersController::class, 'store']);
+Route::post('/register', [UsersController::class, 'store'])->middleware('throttle:5,1');
 
 //ROUTES PROTECTED BY AUTH SANCTUM
 Route::middleware('auth:sanctum')->group(function () {
@@ -41,4 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/categories', [CategoriesController::class, 'store']);
     Route::put('/categories/{category}', [CategoriesController::class, 'update']);
     Route::delete('/categories/{category}', [CategoriesController::class, 'destroy']);
+
+    //IMPORT ROUTES
+    Route::get('/imports', [ImportController::class, 'index']);
+    Route::get('/imports/{import}', [ImportController::class, 'show']);
+    Route::post('/imports', [ImportController::class, 'store']);
+    Route::put('/imports/{import}', [ImportController::class, 'update']);
+    Route::delete('/imports/{import}', [ImportController::class, 'destroy']);
 });
