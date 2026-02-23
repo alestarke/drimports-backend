@@ -25,7 +25,17 @@ class ImportController extends Controller
         try {
             $data = $request->validated();
 
+            $fees = $data['extra_fees_brl'] ?? 0;
+            $totalUsd = $data['cost_price_usd'] * $data['quantity'];
+            $baseBrl = $totalUsd * $data['exchange_rate'];
+            $finalTotalBrl = $baseBrl + $fees;
+
+            $data['extra_fees_brl'] = $fees;
+            $data['total_cost_brl'] = $finalTotalBrl;
+
             $import = Import::create($data);
+
+            $import->product()->increment('stock_quantity', $data['quantity']);
 
             return response()->json([
                 'success' => true,
