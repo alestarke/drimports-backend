@@ -17,6 +17,10 @@ class ProductsController extends Controller
 
         $query = Product::with(['brand', 'category']);
 
+        if ($request->has('all')) {
+            return response()->json($query->get());
+        }
+
         $perPage = $request->query('per_page', 15);
         $products = $query->paginate($perPage);
 

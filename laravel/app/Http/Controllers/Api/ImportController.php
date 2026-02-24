@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateImportRequest;
 use App\Http\Requests\UpdateImportRequest;
 use App\Models\Import;
-use Illuminate\Http\Request;
 
 class ImportController extends Controller
 {
@@ -13,7 +13,7 @@ class ImportController extends Controller
     {
         $this->authorize('viewAny', Import::class);
 
-        $imports = Import::with('product')->latest()->get();
+        $imports = Import::with('product')->latest()->paginate(15);
 
         return response()->json($imports);
     }
