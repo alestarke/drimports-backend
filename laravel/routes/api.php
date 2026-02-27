@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\ImportController;
+use App\Http\Controllers\Api\ClientsController;
 
 //LOGIN
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
@@ -49,4 +50,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/imports', [ImportController::class, 'store']);
     Route::put('/imports/{import}', [ImportController::class, 'update']);
     Route::delete('/imports/{import}', [ImportController::class, 'destroy']);
+
+    //CLIENT ROUTES
+    Route::get('/clients', [ClientsController::class, 'index']);
+    Route::get('/clients/{client}', [ClientsController::class, 'show']);
+    Route::post('/clients', [ClientsController::class, 'store']);
+    Route::put('/clients/{client}', [ClientsController::class, 'update']);
+    Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
 });

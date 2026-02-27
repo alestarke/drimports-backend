@@ -26,6 +26,12 @@ class Product extends Model
         'brand_id',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

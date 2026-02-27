@@ -27,7 +27,7 @@ class CreateProductRequest extends FormRequest
             'sku' => 'nullable|string|max:100|unique:products,sku',
             'description' => 'nullable|string',
             'model' => 'nullable|string|max:255',
-            'price' => 'required|numeric|min:0',
+            'price' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
             'image_url' => 'nullable|url|max:255',
             'is_active' => 'boolean',

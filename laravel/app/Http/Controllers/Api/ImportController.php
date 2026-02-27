@@ -33,9 +33,20 @@ class ImportController extends Controller
             $data['extra_fees_brl'] = $fees;
             $data['total_cost_brl'] = $finalTotalBrl;
 
+            $sellingPrice = $data['selling_price_brl'] ?? null;
+            unset($data['selling_price_brl']);
+
             $import = Import::create($data);
 
+            $product = $import->product;
+
             $import->product()->increment('stock_quantity', $data['quantity']);
+
+            if (!is_null($sellingPrice) && $sellingPrice > 0) {
+                $product->update([
+                    'price' => $sellingPrice
+                ]);
+            }
 
             return response()->json([
                 'success' => true,
