@@ -24,6 +24,7 @@ class CreateClientRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|unique:clients,email',
+            'document' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
         ];
     }

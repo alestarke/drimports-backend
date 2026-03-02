@@ -24,6 +24,7 @@ class UpdateClientRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|nullable|email|unique:clients,email,' . $this->route('client')->id,
+            'document' => 'sometimes|nullable|string|max:255',
             'phone' => 'sometimes|nullable|string|max:20',
         ];
     }
