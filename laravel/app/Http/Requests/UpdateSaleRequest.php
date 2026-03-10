@@ -23,11 +23,7 @@ class UpdateSaleRequest extends FormRequest
     {
         return [
             'sale_date' => 'sometimes|required|date',
-            'client_id' => 'sometimes|required|exists:clients,id',
-            'product_id' => 'sometimes|required|exists:products,id',
-            'quantity' => 'sometimes|required|integer|min:1',
-            'unit_price' => 'sometimes|required|numeric|min:0',
-            'total_price' => 'sometimes|required|numeric|min:0',
+            'client_id' => 'sometimes|required|exists:clients,id'
         ];
     }
 }

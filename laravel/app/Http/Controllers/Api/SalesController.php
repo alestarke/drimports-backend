@@ -70,13 +70,20 @@ class SalesController extends Controller
 
     public function destroy (Sale $sale) {
         try {
+            DB::beginTransaction();
+
+            $sale->product()->increment('stock_quantity', $sale->quantity);
+
             $sale->delete();
+
+            DB::commit();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Sale deleted successfully'
+                'message' => 'Sale deleted and stock updated successfully'
             ], 200);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => true, 'message' => 'Failed to delete sale'], 500);
         }
     }
